@@ -1,0 +1,33 @@
+{
+  "name": "jaiccv1",
+  "displayName": "jaiccv1",
+  "description": "In this fork of gcc is going to parse the number of errors and display memes for a threshold of errors.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "jaiccv1.helloWorld",
+      "title": "Hello World"
+    }]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.105.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "eslint": "^9.36.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
