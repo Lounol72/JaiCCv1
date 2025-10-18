@@ -1,0 +1,125 @@
+main.c:1:13: error: ‘FALSE’ undeclared here (not in a function)
+    1 | int verbose=FALSE;
+      |             ^~~~~
+main.c:3:17: error: ‘NULL’ undeclared here (not in a function)
+    3 | char * src_path=NULL;
+      |                 ^~~~
+main.c:1:1: note: ‘NULL’ is defined in header ‘<stddef.h>’; did you forget to ‘#include <stddef.h>’?
+  +++ |+#include <stddef.h>
+    1 | int verbose=FALSE;
+main.c:7:1: error: expected ‘,’ or ‘;’ before ‘char’
+    7 | char command[MAX_DEPTH];
+      | ^~~~
+main.c:8:1: error: unknown type name ‘FILE’
+    8 | FILE * src_fil;
+      | ^~~~
+main.c:1:1: note: ‘FILE’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+  +++ |+#include <stdio.h>
+    1 | int verbose=FALSE;
+main.c:9:1: error: unknown type name ‘FILE’
+    9 | FILE * dest_file;
+      | ^~~~
+main.c:9:1: note: ‘FILE’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+main.c:13:18: error: ‘MAX_DEPTH’ undeclared here (not in a function)
+   13 | char quote_stack[MAX_DEPTH];
+      |                  ^~~~~~~~~
+main.c: In function ‘main’:
+main.c:24:23: warning: implicit declaration of function ‘getopt’ [-Wimplicit-function-declaration]
+   24 |         while ((opt = getopt (argc, argv, "vco:")) != -1){
+      |                       ^~~~~~
+main.c:27:41: error: ‘TRUE’ undeclared (first use in this function)
+   27 |                                 verbose=TRUE;
+      |                                         ^~~~
+main.c:27:41: note: each undeclared identifier is reported only once for each function it appears in
+main.c:30:43: error: ‘optarg’ undeclared (first use in this function)
+   30 |                                 dest_path=optarg;
+      |                                           ^~~~~~
+main.c:35:25: warning: implicit declaration of function ‘abort’ [-Wimplicit-function-declaration]
+   35 |                         abort ();
+      |                         ^~~~~
+main.c:1:1: note: include ‘<stdlib.h>’ or provide a declaration of ‘abort’
+  +++ |+#include <stdlib.h>
+    1 | int verbose=FALSE;
+main.c:35:25: warning: incompatible implicit declaration of built-in function ‘abort’ [-Wbuiltin-declaration-mismatch]
+   35 |                         abort ();
+      |                         ^~~~~
+main.c:35:25: note: include ‘<stdlib.h>’ or provide a declaration of ‘abort’
+main.c:39:17: error: ‘optind’ undeclared (first use in this function)
+   39 |         if(argc-optind!=1){
+      |                 ^~~~~~
+main.c:40:17: warning: implicit declaration of function ‘fprintf’ [-Wimplicit-function-declaration]
+   40 |                 fprintf(stderr,"Missing parameter : <src_file_name>\nUsage : %s [options] <src_file_name>\n",argv[0]);
+      |                 ^~~~~~~
+main.c:40:17: note: include ‘<stdio.h>’ or provide a declaration of ‘fprintf’
+main.c:40:17: warning: incompatible implicit declaration of built-in function ‘fprintf’ [-Wbuiltin-declaration-mismatch]
+main.c:40:17: note: include ‘<stdio.h>’ or provide a declaration of ‘fprintf’
+main.c:40:25: error: ‘stderr’ undeclared (first use in this function)
+   40 |                 fprintf(stderr,"Missing parameter : <src_file_name>\nUsage : %s [options] <src_file_name>\n",argv[0]);
+      |                         ^~~~~~
+main.c:40:25: note: ‘stderr’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+main.c:41:17: warning: implicit declaration of function ‘exit’ [-Wimplicit-function-declaration]
+   41 |                 exit(PARAMETER_ERROR);
+      |                 ^~~~
+main.c:41:17: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+main.c:41:17: warning: incompatible implicit declaration of built-in function ‘exit’ [-Wbuiltin-declaration-mismatch]
+main.c:41:17: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+main.c:41:22: error: ‘PARAMETER_ERROR’ undeclared (first use in this function)
+   41 |                 exit(PARAMETER_ERROR);
+      |                      ^~~~~~~~~~~~~~~
+main.c:45:9: warning: implicit declaration of function ‘sprintf’ [-Wimplicit-function-declaration]
+   45 |         sprintf(command,"gcc -E -P %s > %s",src_path,preprocessed_file_path);
+      |         ^~~~~~~
+main.c:45:9: note: include ‘<stdio.h>’ or provide a declaration of ‘sprintf’
+main.c:45:9: warning: incompatible implicit declaration of built-in function ‘sprintf’ [-Wbuiltin-declaration-mismatch]
+main.c:45:9: note: include ‘<stdio.h>’ or provide a declaration of ‘sprintf’
+main.c:45:17: error: ‘command’ undeclared (first use in this function)
+   45 |         sprintf(command,"gcc -E -P %s > %s",src_path,preprocessed_file_path);
+      |                 ^~~~~~~
+main.c:46:9: warning: implicit declaration of function ‘system’ [-Wimplicit-function-declaration]
+   46 |         system(command);
+      |         ^~~~~~
+main.c:48:9: error: ‘src_file’ undeclared (first use in this function); did you mean ‘src_fil’?
+   48 |         src_file=fopen(preprocessed_file_path,"r");
+      |         ^~~~~~~~
+      |         src_fil
+main.c:48:18: warning: implicit declaration of function ‘fopen’ [-Wimplicit-function-declaration]
+   48 |         src_file=fopen(preprocessed_file_path,"r");
+      |                  ^~~~~
+main.c:48:18: note: ‘fopen’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+main.c:49:18: warning: assignment to ‘int *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+   49 |         dest_file=fopen(dest_path,"w");
+      |                  ^
+main.c:51:17: warning: incompatible implicit declaration of built-in function ‘fprintf’ [-Wbuiltin-declaration-mismatch]
+   51 |                 fprintf(stderr,"Cannot open one of the file\n");
+      |                 ^~~~~~~
+main.c:51:17: note: include ‘<stdio.h>’ or provide a declaration of ‘fprintf’
+main.c:52:17: warning: incompatible implicit declaration of built-in function ‘exit’ [-Wbuiltin-declaration-mismatch]
+   52 |                 exit(FILE_ERROR);
+      |                 ^~~~
+main.c:52:17: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+main.c:52:22: error: ‘FILE_ERROR’ undeclared (first use in this function)
+   52 |                 exit(FILE_ERROR);
+      |                      ^~~~~~~~~~
+main.c:56:29: warning: implicit declaration of function ‘fgetc’ [-Wimplicit-function-declaration]
+   56 |                 actual_char=fgetc(src_file);
+      |                             ^~~~~
+main.c:57:33: error: ‘EOF’ undeclared (first use in this function)
+   57 |                 if(actual_char!=EOF && (ind_stack>=0 || !char_to_del(actual_char))){
+      |                                 ^~~
+main.c:57:33: note: ‘EOF’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+main.c:58:25: warning: implicit declaration of function ‘fputc’ [-Wimplicit-function-declaration]
+   58 |                         fputc(actual_char,dest_file);
+      |                         ^~~~~
+main.c:58:25: note: include ‘<stdio.h>’ or provide a declaration of ‘fputc’
+main.c:59:37: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+   59 |                         if(verbose) printf("%c",actual_char);
+      |                                     ^~~~~~
+main.c:59:37: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+main.c:59:37: warning: incompatible implicit declaration of built-in function ‘printf’ [-Wbuiltin-declaration-mismatch]
+main.c:59:37: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+main.c:66:11: error: expected ‘while’ before ‘whil’
+   66 |         } whil(!feof(src_file));
+      |           ^~~~
+main.c:68:9: warning: implicit declaration of function ‘fclose’ [-Wimplicit-function-declaration]
+   68 |         fclose(src_file);
+      |         ^~~~~~
