@@ -2,6 +2,34 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
 
+// function to create the HTML code to display any image
+
+function getWebviewContent(imageUri,regex_match) {
+	const g = regex_match.groups ?? {};
+	return `<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+			<div>
+    			<img src="${imageUri}" style="max‑width: 100%; height: auto;" />
+  			</div>
+			<div style=" width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+				<p>Type     : ${g.type}</p>
+				<p>Ligne    : ${g.ligne}</p>
+				<p>Colonne  : ${g.colonne}</p>
+				<p>Message  : ${(g.message ?? "").trim()}</p>
+			</div>`
+}
+
+function getDefaultHTML(){
+	return `<!DOCTYPE html>
+  	<html lang="en">
+  	<head>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device‑width,initial‑scale=1.0">
+    	<title>Image Viewer</title>
+  	</head>
+  	<body>
+		<div style="display: flex; align-items: stretch">`
+}
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
@@ -50,6 +78,28 @@ function activate(context) {
 		// matchAll + flag g pour itérer sur toutes les occurrences
 		const matches = Array.from(gcc_output.matchAll(pattern));
 
+		/*test display image*/
+
+		const panel = vscode.window.createWebviewPanel(
+		'imageView',             // viewType
+		'Image Viewer',          // title
+		vscode.ViewColumn.One,   // show in first column
+		{
+			// Allow local resource root(s) so we can load images from extension assets/memes folder
+			localResourceRoots: [ vscode.Uri.joinPath(context.extensionUri, 'assets/memes') ],
+			enableScripts: false     // no script needed for simple image
+		}
+		);
+
+		// Path to image file in our extension’s media folder
+		const imageOnDisk = vscode.Uri.joinPath(context.extensionUri, 'assets/memes', 'laughing_cat.webp');
+
+		// Convert the file:// URI to webview URI
+		const imageSrc = panel.webview.asWebviewUri(imageOnDisk);
+
+		// Set the HTML content
+		panel.webview.html = getDefaultHTML();
+
 		if (matches.length === 0) {
 		console.log("Aucun diagnostic trouvé.");
 		} else {
@@ -63,7 +113,10 @@ function activate(context) {
 			vscode.window.showInformationMessage(`Type     : ${g.type}`);
 			console.log(`Message  : ${(g.message ?? "").trim()}`);
 			console.log(`Contexte :\n${m[0].trim()}\n`);
+
+			panel.webview.html += getWebviewContent(imageSrc,m);
 		});
+		panel.webview.html += `</div></body></html>`;
 		}
 
 	});
