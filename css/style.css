@@ -1,0 +1,144 @@
+/* Styles pour l'extension jaiccv1 - Affichage des erreurs de compilation */
+
+/* Container principal pour l'affichage des erreurs */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container pour l'image */
+.image-container {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image dans le container */
+.error-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    max-height: 200px;
+}
+
+/* Container pour les informations d'erreur */
+.info-container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Grille pour organiser les informations */
+.info-grid {
+    display: grid;
+    gap: 12px;
+}
+
+/* Style de base pour les éléments d'information */
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+/* Style pour l'élément Type */
+.info-item.type {
+    border-left: 4px solid #667eea;
+    width: 10vw;
+    height: 20vh;
+}
+
+/* Style pour l'élément Ligne */
+.info-item.line {
+    border-left: 4px solid #f093fb;
+}
+
+/* Style pour l'élément Colonne */
+.info-item.column {
+    border-left: 4px solid #4facfe;
+}
+
+/* Style pour l'élément Message */
+.info-item.message {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    background: #fff5f5;
+    border-radius: 8px;
+    border-left: 4px solid #fc5c7d;
+}
+
+/* Style pour l'élément de succès (compilation réussie) */
+.info-item.success {
+    border-left: 4px solid #4facfe;
+}
+
+/* Labels des informations */
+.info-label {
+    font-weight: 600;
+    color: #4a5568;
+    min-width: 80px;
+    font-size: 14px;
+}
+
+/* Valeurs des informations */
+.info-value {
+    color: #2d3748;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Valeurs avec police monospace */
+.info-value.monospace {
+    font-family: 'Courier New', monospace;
+}
+
+/* Label du message */
+.message-label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* Contenu du message d'erreur */
+.message-content {
+    color: #c53030;
+    font-size: 13px;
+    line-height: 1.6;
+    font-family: 'Courier New', monospace;
+}
+
+/* Message de succès */
+.success-message {
+    color: #2d3748;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+}
+
+/* Container par défaut pour le body */
+.default-container {
+    display: flex;
+    align-items: stretch;
+}
