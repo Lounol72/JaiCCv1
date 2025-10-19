@@ -5,7 +5,7 @@ const pattern = /^(?<fichier>[^\s:]+\.c):(?<ligne>\d+):(?<colonne>\d+):\s+(?<typ
 
 // function to create the HTML code to display any image
 
-function getWebviewContent(imageUri,regex_match) {
+function getWebviewContentFromCompiler(imageUri,regex_match) {
 	const g = regex_match.groups ?? {};
 	return `<div style="
 		display: flex;
@@ -144,6 +144,71 @@ function getWebviewContent(imageUri,regex_match) {
 </div>`;
 }
 
+function getWebviewContentForCompiled(imageUri) {
+	return `<div style="
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 24px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		border-radius: 16px;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		max-width: 600px;
+		margin: 20px auto;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	">
+	<div style="
+		background: white;
+		border-radius: 12px;
+		padding: 16px;
+		margin-bottom: 20px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	">
+		<img src="${imageUri}" style="
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			max-height: 200px;
+		" />
+	</div>
+	
+	<div style="
+		width: 100%;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		border-radius: 12px;
+		padding: 20px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	">
+		<div style="
+			display: grid;
+			gap: 12px;
+		">
+			<div style="
+				display: flex;
+				align-items: center;
+				padding: 10px;
+				background: #f8f9fa;
+				border-radius: 8px;
+				border-left: 4px solid #4facfe;
+			">
+				<span style="
+					color: #2d3748;
+					font-size: 14px;
+					font-family: 'Courier New', monospace;
+					font-weight: 500;
+				">Le code à été compilé sans erreurs mon chef !!!</span>
+			</div>
+		</div>
+	</div>
+</div>`;
+}
+
 function getDefaultHTML(){
 	return `<!DOCTYPE html>
   	<html lang="en">
@@ -154,6 +219,32 @@ function getDefaultHTML(){
   	</head>
   	<body>
 		<div style="display: flex; align-items: stretch">`
+}
+
+async function buildWebviewContent(folderName, context, panel, m) {
+	const path = require("path");
+	const fs = require("fs");
+	const directoryPath = path.join(context.extensionPath, 'assets/memes', folderName);
+
+	try {
+		const files = await fs.promises.readdir(directoryPath);
+		if (files.length === 0) {
+			console.warn(`Aucune image trouvée dans ${directoryPath}`);
+			return ""; // Rien à afficher
+		}
+
+		const randomImage = files[Math.floor(Math.random() * files.length)];
+
+		const imageOnDisk = vscode.Uri.joinPath(context.extensionUri, 'assets', 'memes', folderName, randomImage);
+		const imageSrc = panel.webview.asWebviewUri(imageOnDisk);
+
+		if (m!=null) return getWebviewContentFromCompiler(imageSrc,m);
+		return getWebviewContentForCompiled(imageSrc);
+
+	} catch (err) {
+		console.error('Erreur lors de la lecture du dossier :', err);
+		return `<p>Erreur lors de la lecture des images pour ${folderName}</p>`;
+	}
 }
 
 // This method is called when your extension is activated
@@ -184,7 +275,7 @@ function activate(context) {
 
 		// Get the extension's directory and construct the absolute path to compte_rendu.txt
 		const extensionPath = context.extensionPath;
-		const filePath = path.join(extensionPath, "compte_rendu.txt");
+		const filePath = path.join(extensionPath, "compte_rendu.txt"); // HERE -> use compte_rendu.txt to test for errors OR compte_rendu_empty.txt to test for no error
 
 		// Check if the file exists before trying to read it
 		if (!fs.existsSync(filePath)) {
@@ -222,37 +313,15 @@ function activate(context) {
 
 		if (matches.length === 0) {
 			console.log("Aucun diagnostic trouvé.");
-			panel.webview.html += "<p>Aucune erreur ou warning détecté.</p></div></body></html>";
+
+			buildWebviewContent("compiled", context, panel, null).then((html) => {
+				panel.webview.html = getDefaultHTML() + html + `<p>Aucune erreur ou warning détecté.</p></div></body></html>`;
+			});
 		} else {
 			// Utilise des promesses pour traiter tous les diagnostics
 			Promise.all(matches.map(async (m) => {
 				const g = m.groups ?? {};
-				const directoryPath = path.join(extensionPath, 'assets/memes', g.type);
-
-				try {
-					const files = await fs.promises.readdir(directoryPath);
-					if (files.length === 0) {
-						console.warn(`Aucune image trouvée dans ${directoryPath}`);
-						return ""; // Rien à afficher
-					}
-
-					const randomImage = files[Math.floor(Math.random() * files.length)];
-
-					const imageOnDisk = vscode.Uri.joinPath(
-						context.extensionUri,
-						'assets',
-						'memes',
-						g.type,
-						randomImage
-					);
-
-					const imageSrc = panel.webview.asWebviewUri(imageOnDisk);
-
-					return getWebviewContent(imageSrc, m);
-				} catch (err) {
-					console.error('Erreur lors de la lecture du dossier :', err);
-					return `<p>Erreur lors de la lecture des images pour ${g.type}</p>`;
-				}
+				return await buildWebviewContent(g.type, context, panel, m);
 			})).then((htmlParts) => {
 				panel.webview.html = getDefaultHTML() + htmlParts.join('\n') + `</div></body></html>`;
 			});
