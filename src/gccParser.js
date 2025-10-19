@@ -6,6 +6,17 @@ const fs = require('fs');
 const path = require('path');
 const { GCC_ERROR_PATTERN, MESSAGES } = require('./constants');
 
+function normalizeLineEndings(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const normalized = content.replace(/\r\n/g, '\n');
+    fs.writeFileSync(filePath, normalized, 'utf8');
+    console.log(`✅ Fichier normalisé : ${filePath}`);
+  } catch (err) {
+    console.error(`❌ Erreur lors du traitement du fichier : ${err.message}`);
+  }
+}
+
 /**
  * Parse le fichier de sortie GCC et retourne les erreurs trouvées
  * @param {string} filePath - Chemin vers le fichier de sortie GCC
@@ -19,6 +30,7 @@ function parseGccOutput(filePath) {
         }
 
         // Lire le contenu du fichier
+        normalizeLineEndings(filePath);
         const gccOutput = fs.readFileSync(filePath, 'utf8');
         
         // Parser les erreurs avec la regex
