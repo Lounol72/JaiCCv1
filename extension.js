@@ -212,29 +212,50 @@ function activate(context) {
 		vscode.ViewColumn.One,   // show in first column
 		{
 			// Allow local resource root(s) so we can load images from extension assets/memes folder
-			localResourceRoots: [ vscode.Uri.joinPath(context.extensionUri, 'assets/memes') ],
+			localResourceRoots: [ vscode.Uri.joinPath(context.extensionUri, `assets/memes`) ],
 			enableScripts: false     // no script needed for simple image
 		}
 		);
-
-		// Path to image file in our extension’s media folder
-		const imageOnDisk = vscode.Uri.joinPath(context.extensionUri, 'assets/memes', 'laughing_cat.webp');
-
-		// Convert the file:// URI to webview URI
-		const imageSrc = panel.webview.asWebviewUri(imageOnDisk);
 
 		// Set the HTML content
 		panel.webview.html = getDefaultHTML();
 
 		if (matches.length === 0) {
-		console.log("Aucun diagnostic trouvé.");
+			console.log("Aucun diagnostic trouvé.");
+			panel.webview.html += "<p>Aucune erreur ou warning détecté.</p></div></body></html>";
 		} else {
-			// panel.webview.html += ("<p>Il y a "+ matches.length+ " Erreurs / Warnings capturés </p>");
-			matches.forEach((m, idx) => {
+			// Utilise des promesses pour traiter tous les diagnostics
+			Promise.all(matches.map(async (m) => {
 				const g = m.groups ?? {};
-				panel.webview.html += getWebviewContent(imageSrc,m);
+				const directoryPath = path.join(extensionPath, 'assets/memes', g.type);
+
+				try {
+					const files = await fs.promises.readdir(directoryPath);
+					if (files.length === 0) {
+						console.warn(`Aucune image trouvée dans ${directoryPath}`);
+						return ""; // Rien à afficher
+					}
+
+					const randomImage = files[Math.floor(Math.random() * files.length)];
+
+					const imageOnDisk = vscode.Uri.joinPath(
+						context.extensionUri,
+						'assets',
+						'memes',
+						g.type,
+						randomImage
+					);
+
+					const imageSrc = panel.webview.asWebviewUri(imageOnDisk);
+
+					return getWebviewContent(imageSrc, m);
+				} catch (err) {
+					console.error('Erreur lors de la lecture du dossier :', err);
+					return `<p>Erreur lors de la lecture des images pour ${g.type}</p>`;
+				}
+			})).then((htmlParts) => {
+				panel.webview.html = getDefaultHTML() + htmlParts.join('\n') + `</div></body></html>`;
 			});
-		panel.webview.html += `</div></body></html>`; // close div, body, html
 		}
 
 	});
