@@ -3,7 +3,7 @@
  */
 
 // Regex pour parser les erreurs GCC
-const GCC_ERROR_PATTERN = /^(?<fichier>[^\s:]+\.c):(?<ligne>\d+):(?<colonne>\d+):\s+(?<type>error|warning):\s*(?<message>[^\r\n]*)(?:\r?\n(?<contexte>(?: {2,}.*\r?\n?)+))?/gm;
+const GCC_ERROR_PATTERN = /^(?<fichier>[^\s:]+\.c):(?<ligne>\d+):(?<colonne>\d+):\s+(?<type>fatal error|error|warning):\s*(?<message>[^\r\n]*)(?:\r?\n(?<contexte>(?: {2,}.*\r?\n?)+))?/gm;
 
 // Messages de l'extension
 const MESSAGES = {

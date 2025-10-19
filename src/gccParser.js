@@ -42,12 +42,12 @@ function validateFile(filePath) {
 
 /**
  * Obtient le chemin complet vers le fichier de sortie GCC
- * @param {string} extensionPath - Chemin de l'extension
+ * @param {string} workspacePath - Chemin du workspace
  * @param {string} fileName - Nom du fichier (compte_rendu.txt ou compte_rendu_empty.txt)
  * @returns {string} Chemin complet
  */
-function getGccOutputPath(extensionPath, fileName = 'compte_rendu.txt') {
-    return path.join(extensionPath, fileName);
+function getGccOutputPath(workspacePath, fileName = 'compte_rendu.txt') {
+    return path.join(workspacePath, fileName);
 }
 
 module.exports = {
