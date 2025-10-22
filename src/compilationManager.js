@@ -126,11 +126,18 @@ class CompilationManager {
 
         switch (this.buildSystem) {
             case BUILD_SYSTEMS.MAKEFILE:
-                return `make 2>${errorOutputPath}`;
+                // Pour Make, on exécute la commande make avec la redirection de stderr vers le fichier compte_rendu.txt ssi je suis sous Linux
+                if (process.platform === 'linux') {
+                    return `make 2>${errorOutputPath}`;
+                }
             
             case BUILD_SYSTEMS.CMAKE:
                 // Pour CMake, on pourrait d'abord configurer puis compiler
-                return `cmake --build . 2>${errorOutputPath}`;
+                if (process.platform === "windows") {
+                    return `cmake -G "MinGW Makefiles" . 2>${errorOutputPath}`;
+                } else {
+                    return `cmake . 2>${errorOutputPath}`;
+                }
             
             case BUILD_SYSTEMS.DIRECT:
             default:
