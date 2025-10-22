@@ -1,4 +1,118 @@
-/mnt/c/Users/subti/Université/Projets/Codage/Sh/jaiccv1/test/main.c:1:10: fatal error: ../include/main.h: No such file or directory
-    1 | #include "../include/main.h"
-      |          ^~~~~~~~~~~~~~~~~~~
-compilation terminated.
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:3:13: error: ‘FALSE’ undeclared here (not in a function)
+    3 | int verbose=FALSE;
+      |             ^~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:5:17: error: ‘NULL’ undeclared here (not in a function)
+    5 | char * src_path=NULL;
+      |                 ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:1:1: note: ‘NULL’ is defined in header ‘<stddef.h>’; did you forget to ‘#include <stddef.h>’?
+  +++ |+#include <stddef.h>
+    1 | //#include "../include/main.h"
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:9:14: error: ‘MAX_DEPTH’ undeclared here (not in a function)
+    9 | char command[MAX_DEPTH];
+      |              ^~~~~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:10:1: error: unknown type name ‘FILE’
+   10 | FILE * src_file;
+      | ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:1:1: note: ‘FILE’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+  +++ |+#include <stdio.h>
+    1 | //#include "../include/main.h"
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:11:1: error: unknown type name ‘FILE’
+   11 | FILE * dest_file;
+      | ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:11:1: note: ‘FILE’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c: In function ‘main’:
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:26:23: warning: implicit declaration of function ‘getopt’ [-Wimplicit-function-declaration]
+   26 |         while ((opt = getopt (argc, argv, "vco:")) != -1){
+      |                       ^~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:29:41: error: ‘TRUE’ undeclared (first use in this function)
+   29 |                                 verbose=TRUE;
+      |                                         ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:29:41: note: each undeclared identifier is reported only once for each function it appears in
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:32:43: error: ‘optarg’ undeclared (first use in this function)
+   32 |                                 dest_path=optarg;
+      |                                           ^~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:37:25: warning: implicit declaration of function ‘abort’ [-Wimplicit-function-declaration]
+   37 |                         abort ();
+      |                         ^~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:1:1: note: include ‘<stdlib.h>’ or provide a declaration of ‘abort’
+  +++ |+#include <stdlib.h>
+    1 | //#include "../include/main.h"
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:37:25: warning: incompatible implicit declaration of built-in function ‘abort’ [-Wbuiltin-declaration-mismatch]
+   37 |                         abort ();
+      |                         ^~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:37:25: note: include ‘<stdlib.h>’ or provide a declaration of ‘abort’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:41:17: error: ‘optind’ undeclared (first use in this function)
+   41 |         if(argc-optind!=1){
+      |                 ^~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:42:17: warning: implicit declaration of function ‘fprintf’ [-Wimplicit-function-declaration]
+   42 |                 fprintf(stderr,"Missing parameter : <src_file_name>\nUsage : %s [options] <src_file_name>\n",argv[0]);
+      |                 ^~~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:42:17: note: include ‘<stdio.h>’ or provide a declaration of ‘fprintf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:42:17: warning: incompatible implicit declaration of built-in function ‘fprintf’ [-Wbuiltin-declaration-mismatch]
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:42:17: note: include ‘<stdio.h>’ or provide a declaration of ‘fprintf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:42:25: error: ‘stderr’ undeclared (first use in this function)
+   42 |                 fprintf(stderr,"Missing parameter : <src_file_name>\nUsage : %s [options] <src_file_name>\n",argv[0]);
+      |                         ^~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:42:25: note: ‘stderr’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:43:17: warning: implicit declaration of function ‘exit’ [-Wimplicit-function-declaration]
+   43 |                 exit(PARAMETER_ERROR);
+      |                 ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:43:17: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:43:17: warning: incompatible implicit declaration of built-in function ‘exit’ [-Wbuiltin-declaration-mismatch]
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:43:17: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:43:22: error: ‘PARAMETER_ERROR’ undeclared (first use in this function)
+   43 |                 exit(PARAMETER_ERROR);
+      |                      ^~~~~~~~~~~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:47:9: warning: implicit declaration of function ‘sprintf’ [-Wimplicit-function-declaration]
+   47 |         sprintf(command,"gcc -E -P %s > %s",src_path,preprocessed_file_path);
+      |         ^~~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:47:9: note: include ‘<stdio.h>’ or provide a declaration of ‘sprintf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:47:9: warning: incompatible implicit declaration of built-in function ‘sprintf’ [-Wbuiltin-declaration-mismatch]
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:47:9: note: include ‘<stdio.h>’ or provide a declaration of ‘sprintf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:48:9: warning: implicit declaration of function ‘system’ [-Wimplicit-function-declaration]
+   48 |         system(command);
+      |         ^~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:50:18: warning: implicit declaration of function ‘fopen’ [-Wimplicit-function-declaration]
+   50 |         src_file=fopen(preprocessed_file_path,"r");
+      |                  ^~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:50:18: note: ‘fopen’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:50:17: warning: assignment to ‘int *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+   50 |         src_file=fopen(preprocessed_file_path,"r");
+      |                 ^
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:51:18: warning: assignment to ‘int *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+   51 |         dest_file=fopen(dest_path,"w");
+      |                  ^
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:53:17: warning: incompatible implicit declaration of built-in function ‘fprintf’ [-Wbuiltin-declaration-mismatch]
+   53 |                 fprintf(stderr,"Cannot open one of the file\n");
+      |                 ^~~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:53:17: note: include ‘<stdio.h>’ or provide a declaration of ‘fprintf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:54:17: warning: incompatible implicit declaration of built-in function ‘exit’ [-Wbuiltin-declaration-mismatch]
+   54 |                 exit(FILE_ERROR);
+      |                 ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:54:17: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:54:22: error: ‘FILE_ERROR’ undeclared (first use in this function)
+   54 |                 exit(FILE_ERROR);
+      |                      ^~~~~~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:58:29: warning: implicit declaration of function ‘fgetc’ [-Wimplicit-function-declaration]
+   58 |                 actual_char=fgetc(src_file);
+      |                             ^~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:59:33: error: ‘EOF’ undeclared (first use in this function)
+   59 |                 if(actual_char!=EOF && (ind_stack>=0 || !char_to_del(actual_char))){
+      |                                 ^~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:59:33: note: ‘EOF’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:60:25: warning: implicit declaration of function ‘fputc’ [-Wimplicit-function-declaration]
+   60 |                         fputc(actual_char,dest_file);
+      |                         ^~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:60:25: note: include ‘<stdio.h>’ or provide a declaration of ‘fputc’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:61:37: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+   61 |                         if(verbose) printf("%c",actual_char);
+      |                                     ^~~~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:61:37: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:61:37: warning: incompatible implicit declaration of built-in function ‘printf’ [-Wbuiltin-declaration-mismatch]
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:61:37: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:68:18: warning: implicit declaration of function ‘feof’ [-Wimplicit-function-declaration]
+   68 |         } while(!feof(src_file));
+      |                  ^~~~
+/info/etu/l3info/s2301149/SH/JaiCCv1/test/main.c:70:9: warning: implicit declaration of function ‘fclose’ [-Wimplicit-function-declaration]
+   70 |         fclose(src_file);
+      |         ^~~~~~

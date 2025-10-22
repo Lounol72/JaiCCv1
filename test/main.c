@@ -1,4 +1,4 @@
-#include "../include/main.h"
+//#include "../include/main.h"
 
 int verbose=FALSE;
 int protected_flag=0;
