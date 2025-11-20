@@ -12,6 +12,7 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const { promisify } = require('util');
 
 // Convertir exec en promesse pour une meilleure gestion asynchrone
@@ -140,6 +141,37 @@ class CompilationManager {
                 
                 return `gcc ${gccFlags} "${mainFilePath}" -o "${outputFilePath}" 2>${errorOutputPath}`;
         }
+    }
+
+    safeCompile(relativeFile) {
+        // 1. Normaliser & check
+        const abs = path.resolve(this.workspacePath, relativeFile);
+        if (!abs.startsWith(path.resolve(this.workspacePath) + path.sep)) {
+            throw new Error('File outside workspace');
+        }
+
+        // 3. Copy to temp location to avoid TOCTOU/symlink
+        const tmpPath = path.join('/tmp', `build-${Date.now()}-${path.basename(abs)}`);
+        fs.copyFileSync(abs, tmpPath);
+
+        // 4. Spawn compiler without shell
+        const child = spawn('gcc', ['I', this.workspacePath, '-o', '/tmp/outbin', tmpPath], {
+            cwd: '/tmp',
+            stdio: ['ignore', 'pipe', 'pipe'],
+        });
+
+        let stdout = '', stderr = '';
+        child.stdout.on('data', d => { stdout += d; if (stdout.length > 1e6) child.kill(); });
+        child.stderr.on('data', d => { stderr += d; if (stderr.length > 1e6) child.kill(); });
+
+        return new Promise((resolve, reject) => {
+            child.on('error', reject);
+            child.on('close', code => {
+            // cleanup tmpPath if needed
+            try { fs.unlinkSync(tmpPath); } catch (e) {}
+            resolve({ code, stdout, stderr });
+            });
+        });
     }
 
     /**

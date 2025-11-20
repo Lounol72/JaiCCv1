@@ -71,7 +71,7 @@
 .info-item.type {
     border-left: 4px solid #667eea;
     width: 10vw;
-    height: 20vh;
+    height: fit-content;
 }
 
 /* Style pour l'élément Ligne */
