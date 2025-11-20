@@ -3,7 +3,15 @@
  */
 
 // Regex pour parser les erreurs GCC
-//const GCC_ERROR_PATTERN = /^(?<fichier>[^\.c:]+\.c):(?<ligne>\d+):(?<colonne>\d+):\s+(?<type>fatal\serror|error|warning):\s*(?<message>[^\r\n]*)(?:\r?\n(?<contexte>(?: {2,}.*\r?\n?)+))?/gm;
+/**
+ * Time passed on this regex : 8 hours 
+ * Time well spent : nope ( WHEN DOES HUMANITY THOUGHT THAT A REGEX SHOULD BE THAT COMPLEX ??? )
+ * Time to share it with the world : absolutely
+ * Time passed debugging it : several days
+ * Time to write a comment about it : 15 minutes
+ * Time for you to read this comment : 2 minutes
+ * Please treat it with respect and care.
+ */
 const GCC_ERROR_PATTERN = /^(?<fichier>.*?\.c):(?<ligne>\d+):(?<colonne>\d+):\s+(?<type>fatal\serror|error|warning):\s*(?<message>[^\r\n]*)(?:\r?\n(?<contexte>(?: {2,}.*\r?\n?)+))?/gm;
 
 

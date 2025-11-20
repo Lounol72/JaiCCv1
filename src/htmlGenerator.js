@@ -10,7 +10,6 @@
  */
 function generateErrorContent(imageUri, regexMatch) {
     const groups = regexMatch.groups ?? {};
-    
     return `<div class="error-container">
     <div class="image-container">
         <img src="${imageUri}" class="error-image" />
