@@ -111,7 +111,7 @@ class WebviewManager {
                     const groups = match.groups ?? {};
                     console.log(groups.type);
                     return await this.buildWebviewContent(groups.type, panel, match); //split.last is a bandage for "Fatal error" type
-                })
+                })                                                                    // Look at this bozo who left this comment when it's not the case anymore ;-)
             );
             
             panel.webview.html = generateBaseHTML(styleWebviewUri) + 
