@@ -124,7 +124,7 @@ class WebviewManager {
         matches.map(async (match) => {
           const groups = match.groups ?? {};
           console.log(groups.type);
-          return await this.buildWebviewContent(groups.type, panel, match); //split.last is a bandage for "Fatal error" type
+          return await this.buildWebviewContent(groups.type, panel, match);
         }),
       );
       sound.playSound(matches.length);
