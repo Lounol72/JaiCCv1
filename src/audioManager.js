@@ -21,5 +21,5 @@ function randomInt(min, max) {
  */
 export function playSound(nb_errors) {
     const audio = new Audio(tableaux_sons[nb_errors <= 5 ? 0 : nb_errors <= 10 ? 1 : nb_errors <= 50 ? 2 : 3][randomInt(0, tableaux_sons[nb_errors <= 5 ? 0 : nb_errors <= 10 ? 1 : nb_errors <= 50 ? 2 : 3].length - 1)]);
-    audio.play();
+    console.log(audio);
 }
